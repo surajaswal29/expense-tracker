@@ -1,9 +1,11 @@
 import React from "react";
 
-export default () => {
+const App = () => {
   return (
     <div>
       <h1>Expenzie</h1>
     </div>
   );
 };
+
+export default App;
