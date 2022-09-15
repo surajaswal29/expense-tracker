@@ -1,0 +1,77 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600&family=Poppins:wght@200;300;400&display=swap");
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  /* font-family: "Montserrat", sans-serif; */
+  font-family: "Poppins", sans-serif;
+}
+.main-container {
+  height: 100vh;
+  width: 100%;
+  font-family: "Poppins", sans-serif;
+}
+.logo-header {
+  background-color: black;
+  padding: 8px;
+}
+.logo-header h1 {
+  color: #fff;
+  font-weight: 300;
+  text-align: center;
+}
+.sub-container {
+  display: flex;
+  width: 100vw;
+  padding: 20px 40px;
+}
+.sub-container .img-container {
+  width: 40%;
+}
+.img-container img {
+  width: 100%;
+  height: 100%;
+}
+.app-heading {
+  width: 60%;
+  padding: 1rem;
+  /* border: 1px solid #000; */
+  text-align: end;
+}
+.app-heading h1 {
+  line-height: normal;
+  text-shadow: 2px -2px 30px rgba(75, 207, 14, 0.603);
+  font-size: 6rem;
+  margin-top: 2.5rem;
+}
+.app-heading h1::selection {
+  background-color: rgb(48, 190, 112);
+}
+.user-account-buttons {
+  display: flex;
+  justify-content: end;
+}
+.user-account-buttons a {
+  text-decoration: none;
+  margin: 0 1rem;
+  font-size: 1rem;
+  padding: 8px 15px;
+  border-radius: 5px;
+  color: #fff;
+  background: linear-gradient(to right, rgb(48, 190, 112), rgb(36, 185, 16));
+}
+.app-heading span {
+  font-size: 30px;
+  margin-top: 1rem;
+  display: inline-block;
+  font-weight: 200;
+}
+.credit {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  font-size: 13px;
+  color: rgb(39, 38, 38);
+  position: fixed;
+  bottom: 1%;
+}
