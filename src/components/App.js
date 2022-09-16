@@ -1,9 +1,9 @@
 import React from "react";
-import "./App.css";
-import expenses from "../images/expenses.jpg";
-import LogoHeader from "./LogoHeader";
-import CreditFooter from "./CreditFooter";
-import ExpenseImage from "./ExpenseImage";
+import "./App.css"; //style file
+import expenses from "../images/expenses.jpg"; //banner image
+import LogoHeader from "./LogoHeader"; //Header Logo
+import CreditFooter from "./CreditFooter"; //Credit Footer
+import ExpenseImage from "./ExpenseImage"; //expense image
 
 const App = () => {
   return (
@@ -14,8 +14,8 @@ const App = () => {
           <ExpenseImage image={expenses} />
           <div className="app-heading">
             <nav className="user-account-buttons">
-              <a href="#">Register</a>
-              <a href="#">Log in</a>
+              <button href="#">Register</button>
+              <button href="#">Log in</button>
             </nav>
 
             <h1>Manage Your Expenses</h1>
