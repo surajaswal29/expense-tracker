@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css"; //style file
-import expenses from "../images/expenses.jpg"; //banner image
+import expenses from "../images/expenses1.png"; //banner image
 import LogoHeader from "./LogoHeader"; //Header Logo
 import CreditFooter from "./CreditFooter"; //Credit Footer
 import ExpenseImage from "./ExpenseImage"; //expense image
