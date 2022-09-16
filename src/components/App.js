@@ -14,8 +14,8 @@ const App = () => {
           <ExpenseImage image={expenses} />
           <div className="app-heading">
             <nav className="user-account-buttons">
-              <button href="#">Register</button>
-              <button href="#">Log in</button>
+              <button>Register</button>
+              <button>Log in</button>
             </nav>
 
             <h1>Manage Your Expenses</h1>
