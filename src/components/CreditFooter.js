@@ -7,7 +7,7 @@ const creditFooter = () => {
       <span style={{ color: "red" }}> ❤ </span>&nbsp; by&nbsp;
       <a
         href="https://surajaswal.dev"
-        style={{ textDecoration: "none", fontWeight: "bold", color: "#3b3b3b" }}
+        style={{ textDecoration: "underline", fontWeight: "bold", color: "#25a244" }}
       >
         Suraj Aswal
       </a>
