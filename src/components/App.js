@@ -1,18 +1,17 @@
 import React from "react";
 import "./App.css";
 import expenses from "../images/expenses.jpg";
+import LogoHeader from "./LogoHeader";
+import CreditFooter from "./CreditFooter";
+import ExpenseImage from "./ExpenseImage";
 
 const App = () => {
   return (
     <React.StrictMode>
       <div className="main-container">
-        <header className="logo-header">
-          <h1>Expenzie</h1>
-        </header>
+        <LogoHeader />
         <main className="sub-container">
-          <div className="img-container">
-            <img src={expenses} alt="" srcset="" />
-          </div>
+          <ExpenseImage image={expenses} />
           <div className="app-heading">
             <nav className="user-account-buttons">
               <a href="#">Register</a>
@@ -23,16 +22,7 @@ const App = () => {
             <span>Expenzie - An Expense Tracker App</span>
           </div>
         </main>
-        <footer className="credit">
-          Designed & Developed with &nbsp;
-          <span style={{ color: "red" }}> ❤ </span>&nbsp; by&nbsp;
-          <a
-            href="https://surajaswal.dev"
-            style={{ textDecoration: "none", fontWeight: "bold" }}
-          >
-            Suraj Aswal
-          </a>
-        </footer>
+        <CreditFooter />
       </div>
     </React.StrictMode>
   );
