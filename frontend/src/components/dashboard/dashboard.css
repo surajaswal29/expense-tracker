@@ -1,0 +1,36 @@
+body {
+  background: #fff;
+}
+.profile-box {
+  padding: 40px;
+  background-color: #e9e5e5;
+  position: relative;
+  border-radius: 10px;
+  height: 150px;
+}
+.profile-icon {
+  width: 70px;
+  height: 70px;
+  overflow: hidden;
+  border-radius: 50%;
+  border: 3px solid #9c9a9a;
+  position: absolute;
+  transform: translate(100%, -100%);
+}
+.profile-icon img {
+  height: 100%;
+  width: 100%;
+}
+.profile-box p {
+  font-size: 14px;
+}
+.dashboard-time-display {
+  padding: 40px;
+  background: #000;
+}
+.total-money-box {
+  padding: 40px;
+  background-color: #dd4f4f;
+  border-radius: 10px;
+  height: 150px;
+}
