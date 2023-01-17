@@ -14,7 +14,7 @@
 }
 .logo-header {
   background-color: black;
-  padding: 8px;
+  padding: 5px;
 }
 .logo-header h1 {
   color: #fff;
@@ -52,7 +52,7 @@
 }
 .user-account-buttons {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
 }
 .user-account-buttons button {
   border: none;
