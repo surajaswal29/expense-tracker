@@ -25,11 +25,21 @@ body {
   font-size: 14px;
 }
 .dashboard-time-display {
-  padding: 40px;
+  padding: 30px;
   background: #000;
+  height: 150px;
+}
+.dashboard-time-display h1 {
+  color: #fff;
+}
+.dashboard-time-display h4 {
+  color: #9c9c9c;
+}
+.dashboard-time-display span {
+  position: fixed;
 }
 .total-money-box {
-  padding: 40px;
+  padding: 30px;
   background-color: #e9e5e5;
   border-radius: 10px;
   height: 150px;
