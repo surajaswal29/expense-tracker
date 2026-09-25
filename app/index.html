@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#0b0d17" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f4f5fb" media="(prefers-color-scheme: light)" />
+    <meta name="description" content="Expenzie — a fast, offline-first expense tracker with canvas-powered charts." />
+    <title>Expenzie · Expense Tracker</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%236d5dfc'/%3E%3Cpath d='M10 22V10h11M10 16h8M10 22h11' stroke='white' stroke-width='3' fill='none' stroke-linecap='round'/%3E%3C/svg%3E" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
+    <link rel="stylesheet" href="css/styles.css" />
+    <script type="module" src="js/main.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="topbar">
+      <a class="brand" href="./" aria-label="Expenzie home">
+        <svg viewBox="0 0 32 32" width="32" height="32" aria-hidden="true">
+          <rect width="32" height="32" rx="9" fill="var(--accent)" />
+          <path d="M10 22V10h11M10 16h8M10 22h11" stroke="white" stroke-width="3" fill="none" stroke-linecap="round" />
+        </svg>
+        <span>Expenzie</span>
+      </a>
+
+      <nav class="month-nav" aria-label="Choose month">
+        <button class="icon-btn" type="button" data-month="-1" aria-label="Previous month" title="Previous month (←)">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 6-6 6 6 6" /></svg>
+        </button>
+        <h1 id="month-label" aria-live="polite">&nbsp;</h1>
+        <button class="icon-btn" type="button" data-month="1" aria-label="Next month" title="Next month (→)">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6" /></svg>
+        </button>
+      </nav>
+
+      <div class="topbar-actions">
+        <time id="clock" class="clock" aria-label="Current time"></time>
+        <button id="theme-toggle" class="icon-btn" type="button" aria-label="Toggle dark mode" title="Toggle theme">
+          <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="4" />
+            <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
+          </svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5Z" /></svg>
+        </button>
+        <button class="icon-btn menu-trigger" type="button" popovertarget="app-menu" aria-label="More actions" title="More">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="1.2" /><circle cx="12" cy="12" r="1.2" /><circle cx="19" cy="12" r="1.2" /></svg>
+        </button>
+        <div id="app-menu" class="menu" popover>
+          <button type="button" data-menu="export">⬇️ Export CSV</button>
+          <button type="button" data-menu="import">⬆️ Import CSV</button>
+          <hr />
+          <button type="button" data-menu="reset">✨ Load demo data</button>
+          <button type="button" data-menu="clear" class="danger">🗑️ Clear all data</button>
+        </div>
+        <button id="add-btn" class="btn btn-primary" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>
+          <span>Add</span>
+          <kbd>N</kbd>
+        </button>
+      </div>
+    </header>
+
+    <main id="main" class="dashboard">
+      <section class="kpis" aria-label="Monthly summary">
+        <article class="kpi card" data-kpi="net">
+          <p class="kpi-label">Net balance</p>
+          <p class="kpi-value" data-value>—</p>
+          <p class="kpi-delta" data-delta></p>
+          <canvas class="kpi-spark" aria-hidden="true"></canvas>
+        </article>
+        <article class="kpi card" data-kpi="income">
+          <p class="kpi-label"><i class="dot" style="--c: var(--income)"></i>Income</p>
+          <p class="kpi-value" data-value>—</p>
+          <p class="kpi-delta" data-delta></p>
+          <canvas class="kpi-spark" aria-hidden="true"></canvas>
+        </article>
+        <article class="kpi card" data-kpi="expense">
+          <p class="kpi-label"><i class="dot" style="--c: var(--expense)"></i>Expenses</p>
+          <p class="kpi-value" data-value>—</p>
+          <p class="kpi-delta" data-delta></p>
+          <canvas class="kpi-spark" aria-hidden="true"></canvas>
+        </article>
+        <article class="kpi card" data-kpi="savings">
+          <p class="kpi-label">Savings rate</p>
+          <p class="kpi-value" data-value>—</p>
+          <p class="kpi-delta" data-delta></p>
+          <canvas class="kpi-spark" aria-hidden="true"></canvas>
+        </article>
+      </section>
+
+      <section class="card card-donut" aria-labelledby="donut-title">
+        <header class="card-head">
+          <div>
+            <h2 id="donut-title">Spending by category</h2>
+            <p class="muted">Hover a slice or a row for details</p>
+          </div>
+        </header>
+        <div class="donut-layout">
+          <div class="chart-wrap chart-donut">
+            <canvas id="donut-chart" role="img"></canvas>
+          </div>
+          <ul id="donut-legend" class="legend"></ul>
+        </div>
+      </section>
+
+      <section class="card card-bars" aria-labelledby="bars-title">
+        <header class="card-head">
+          <div>
+            <h2 id="bars-title">Cash flow</h2>
+            <p class="muted">Last 6 months · click a month to open it</p>
+          </div>
+          <ul class="key" aria-label="Chart key">
+            <li><i style="--c: var(--income)"></i>Income</li>
+            <li><i style="--c: var(--expense)"></i>Expenses</li>
+            <li><i class="line" style="--c: var(--accent)"></i>Net</li>
+          </ul>
+        </header>
+        <div class="chart-wrap chart-bars">
+          <canvas id="bars-chart" role="img"></canvas>
+          <div class="chart-tip" hidden></div>
+        </div>
+      </section>
+
+      <section class="card card-pace" aria-labelledby="pace-title">
+        <header class="card-head">
+          <div>
+            <h2 id="pace-title">Spending pace</h2>
+            <p class="muted" id="pace-sub">Month-to-date spend vs. your total budget</p>
+          </div>
+        </header>
+        <div class="chart-wrap chart-pace">
+          <canvas id="pace-chart" role="img"></canvas>
+          <div class="chart-tip" hidden></div>
+        </div>
+      </section>
+
+      <section class="card card-budgets" aria-labelledby="budgets-title">
+        <header class="card-head">
+          <div>
+            <h2 id="budgets-title">Budgets</h2>
+            <p class="muted" id="budget-summary"></p>
+          </div>
+          <button class="btn btn-ghost btn-sm" type="button" id="edit-budgets">Edit</button>
+        </header>
+        <ul id="budget-list" class="budgets"></ul>
+      </section>
+
+      <section class="card card-tx" aria-labelledby="tx-title">
+        <header class="card-head">
+          <div>
+            <h2 id="tx-title">Transactions</h2>
+            <p class="muted" id="tx-count" aria-live="polite"></p>
+          </div>
+        </header>
+
+        <div class="toolbar" role="search">
+          <label class="search">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5" /></svg>
+            <span class="sr-only">Search transactions</span>
+            <input id="search" type="search" placeholder="Search notes, categories, amounts…" autocomplete="off" />
+            <kbd>/</kbd>
+          </label>
+          <fieldset class="segmented" id="type-filter">
+            <legend class="sr-only">Type</legend>
+            <label><input type="radio" name="type-filter" value="all" checked /><span>All</span></label>
+            <label><input type="radio" name="type-filter" value="income" /><span>Income</span></label>
+            <label><input type="radio" name="type-filter" value="expense" /><span>Expenses</span></label>
+          </fieldset>
+          <label class="select">
+            <span class="sr-only">Category</span>
+            <select id="category-filter"></select>
+          </label>
+        </div>
+
+        <div id="tx-list" class="tx-list"></div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>Expenzie · Data stays in your browser · Built with HTML, CSS &amp; Canvas</p>
+      <p class="shortcuts"><kbd>N</kbd> new <kbd>/</kbd> search <kbd>←</kbd><kbd>→</kbd> month</p>
+    </footer>
+
+    <!-- Add / edit transaction -->
+    <dialog id="tx-dialog" aria-labelledby="tx-dialog-title">
+      <form id="tx-form" method="dialog" novalidate>
+        <header class="dialog-head">
+          <h2 id="tx-dialog-title">Add transaction</h2>
+          <button class="icon-btn" type="button" data-close aria-label="Close">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" /></svg>
+          </button>
+        </header>
+
+        <fieldset class="segmented segmented-lg type-switch">
+          <legend class="sr-only">Transaction type</legend>
+          <label><input type="radio" name="type" value="expense" checked /><span>Expense</span></label>
+          <label><input type="radio" name="type" value="income" /><span>Income</span></label>
+        </fieldset>
+
+        <label class="field field-amount">
+          <span>Amount</span>
+          <div class="amount-input">
+            <span class="currency" id="currency-symbol">₹</span>
+            <input name="amount" type="number" inputmode="decimal" min="0.01" step="0.01" max="100000000" required placeholder="0" />
+          </div>
+          <small class="error">Enter an amount greater than zero</small>
+        </label>
+
+        <div class="field-row">
+          <label class="field">
+            <span>Category</span>
+            <select name="category" required></select>
+          </label>
+          <label class="field">
+            <span>Date</span>
+            <input name="date" type="date" required />
+            <small class="error">Pick a date</small>
+          </label>
+        </div>
+
+        <label class="field">
+          <span>Note <em>(optional)</em></span>
+          <input name="note" type="text" maxlength="80" placeholder="e.g. Dinner with friends" autocomplete="off" />
+        </label>
+
+        <footer class="dialog-foot">
+          <button class="btn btn-ghost" type="button" data-close>Cancel</button>
+          <button class="btn btn-primary" type="submit" id="tx-submit">Save</button>
+        </footer>
+      </form>
+    </dialog>
+
+    <!-- Budgets -->
+    <dialog id="budget-dialog" aria-labelledby="budget-dialog-title">
+      <form id="budget-form" method="dialog">
+        <header class="dialog-head">
+          <div>
+            <h2 id="budget-dialog-title">Monthly budgets</h2>
+            <p class="muted">Leave blank for no limit</p>
+          </div>
+          <button class="icon-btn" type="button" data-close aria-label="Close">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" /></svg>
+          </button>
+        </header>
+        <div id="budget-fields" class="budget-fields"></div>
+        <footer class="dialog-foot">
+          <button class="btn btn-ghost" type="button" data-close>Cancel</button>
+          <button class="btn btn-primary" type="submit">Save budgets</button>
+        </footer>
+      </form>
+    </dialog>
+
+    <input id="import-input" type="file" accept=".csv,text/csv" hidden />
+    <div id="toasts" class="toasts" role="status" aria-live="polite"></div>
+  </body>
+</html>
